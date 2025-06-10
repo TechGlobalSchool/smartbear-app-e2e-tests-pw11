@@ -23,12 +23,16 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [
+    ['html', { open: 'never'}],
+    ['list'],
+    ['junit', { outputFile: 'junitReports/reports.xml'}],
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     headless: false,
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: process.env.baseURL,
+    //baseURL: process.env.baseURL,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -40,13 +44,20 @@ export default defineConfig({
       name: 'SmartBear E2E Tests - Chrome',
       testDir: './tests/e2e-tests',
       dependencies: ['SmartBear Setup Tests'],
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        ...devices['Desktop Chrome'],
+        baseURL: process.env.baseURL,
+        storageState: './auth/smartlogin.json' 
+      },
     },
 
     {
       name: 'SmartBear Setup Tests',
       testDir: './tests/setup',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        ...devices['Desktop Chrome'],
+        baseURL: process.env.loginURL
+       },
     },
 
     // {
