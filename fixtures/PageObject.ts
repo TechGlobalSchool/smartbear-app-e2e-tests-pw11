@@ -9,6 +9,7 @@ type PageObject = {
 
 export const test = base.extend<PageObject>({
   basePage: async({ page }, use) => {
+    await page.goto('');
     const basePage = new BasePage(page);
     // actions
     await use(basePage);
