@@ -8,9 +8,17 @@ test.describe("SmartBear App Home Page visual verification @Home @Smoke", () => 
     await ScreenshotUtils.takeScreenshot(basePage.page);
   });
 
-  test("SmartBear App Home Page snapshot verification", async ({
+  test("SmartBear App Home Page default snapshot verification", async ({
     basePage,
   }) => {
-    await expect(basePage.body).toMatchAriaSnapshot(Snapshots.homePageDefault);
+    await expect(basePage.fullHTMLContent).toMatchAriaSnapshot(Snapshots.homePageDefault);
+  });
+
+  test("SmartBear App Home Page all orders deleted snapshot verification", async ({
+    homePage,
+  }) => {
+    await homePage.checkAllLink.click();
+    await homePage.deleteSelectedButton.click();
+    await expect(homePage.pageAfterDelete).toMatchAriaSnapshot(Snapshots.homePageAllOrdersDeleted);
   });
 });

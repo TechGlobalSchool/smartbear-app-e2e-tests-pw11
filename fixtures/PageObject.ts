@@ -1,10 +1,12 @@
 import { test as base, expect } from '@playwright/test';
 import { BasePage } from '../pages/BasePage';
 import { LoginPage } from '../pages/LoginPage';
+import { HomePage } from '../pages/HomePage';
 
 type PageObject = {
   basePage: BasePage,
-  loginPage: LoginPage
+  loginPage: LoginPage,
+  homePage: HomePage
 }
 
 export const test = base.extend<PageObject>({
@@ -20,6 +22,13 @@ export const test = base.extend<PageObject>({
     const loginPage = new LoginPage(page);
 
     await use(loginPage);
+  },
+
+  homePage: async({ page }, use) =>{
+    await page.goto('');
+    const homePage = new HomePage(page);
+
+    await use(homePage);
   }
 });
 

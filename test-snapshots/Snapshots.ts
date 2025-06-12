@@ -180,5 +180,13 @@ export const Snapshots = {
                   - cell "Edit":
                     - button "Edit"
             - button "Delete Selected"
-  `
+  `,
+  homePageAllOrdersDeleted: `
+    - heading "List of All Orders" [level=2]
+    - text: List of orders is empty. In order to add new order use
+    - link "this link":
+      - /url: Process.aspx
+    - text: .
+    - paragraph
+    `
 };
